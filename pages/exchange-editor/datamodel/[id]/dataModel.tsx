@@ -2,8 +2,8 @@ import { Box, BoxProps, Button, Card, CardBody, CardFooter, CardHeader, Heading,
 import { Book, Close, Favorite, FormEdit, Hide } from 'grommet-icons';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { DataModelContent, DataModelPageTemplate, EditDataForm, TipContent } from '../../components';
-import mockData from './mocks/abstract.json';
+import { DataModelContent, DataModelPageTemplate, EditDataForm, TipContent } from '../../../../components';
+import mockData from '../mocks/abstract.json';
 
 export async function getStaticProps() {
     return {
@@ -235,3 +235,22 @@ const DataModelPage = ({ dataModelData }: DataModelPageProps) => {
 };
 
 export default DataModelPage;
+
+export async function getStaticPaths() {
+    const paths = [
+        {
+            params: {
+                id: '51780',
+            },
+        },
+        {
+            params: {
+                id: '51781',
+            },
+        },
+    ];
+    return {
+        paths,
+        fallback: false,
+    };
+}
