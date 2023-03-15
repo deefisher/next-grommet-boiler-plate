@@ -5,16 +5,25 @@ import React from 'react';
 import { DataModelContent, DataModelPageTemplate, EditDataForm, TipContent } from '../../components';
 import mockData from './mocks/abstract.json';
 
+export async function getStaticProps() {
+    return {
+        props: {
+            dataModelData: mockData,
+        },
+    };
+}
+
 export interface DataModelPageProps extends BoxProps {
+    /** DataModelPage data */
+    dataModelData: any;
     /** DataModelPage component children */
     children?: React.ReactNode;
 }
 
 /** DataModelPage that displays data models */
-const DataModelPage = ({ children, ...props }: DataModelPageProps) => {
+const DataModelPage = ({ dataModelData }: DataModelPageProps) => {
     const [showEditForm, setShowEditForm] = React.useState(false);
     const [currentFormIndex, setCurrentFormIndex] = React.useState(0);
-    const [data, setData] = React.useState(mockData);
 
     const generateShowFormCallback = (index: number) => () => {
         setCurrentFormIndex(index);
@@ -37,10 +46,12 @@ const DataModelPage = ({ children, ...props }: DataModelPageProps) => {
                                           <CardHeader pad={{ horizontal: 'medium', top: 'medium' }}>
                                               <Tip
                                                   plain
-                                                  content={<TipContent>{data[0]?.[0]?.data[0]?.value}</TipContent>}
+                                                  content={
+                                                      <TipContent>{dataModelData[0]?.[0]?.data[0]?.value}</TipContent>
+                                                  }
                                               >
                                                   <Heading margin="none" level="2" truncate>
-                                                      {data[0]?.[0]?.data[0]?.value}
+                                                      {dataModelData[0]?.[0]?.data[0]?.value}
                                                   </Heading>
                                               </Tip>
                                           </CardHeader>
@@ -78,7 +89,7 @@ const DataModelPage = ({ children, ...props }: DataModelPageProps) => {
                                               <Button icon={<FormEdit color="plain" />} hoverIndicator />
                                           </CardFooter>
                                       </Card>
-                                      {data.map((dataSet, k) => (
+                                      {dataModelData.map((dataSet, k) => (
                                           <Card width="100%" background="light-1" key={`dataset-card-${k}`}>
                                               {dataSet.map((values, i) => (
                                                   <React.Fragment key={`dataset-${k}-${i}`}>
@@ -150,7 +161,7 @@ const DataModelPage = ({ children, ...props }: DataModelPageProps) => {
                                                           justify="between"
                                                       >
                                                           <Heading level="3" margin={'0px'}>
-                                                              {data[k]?.[0].title}
+                                                              {dataModelData[k]?.[0].title}
                                                           </Heading>
                                                           <Button
                                                               plain

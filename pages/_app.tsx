@@ -1,7 +1,7 @@
 import { Grommet } from 'grommet';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { theme } from '../styles';
-import DataModelPage from './DataModelPage';
+
 // import { useDispatch } from 'react-redux/es/exports';
 // import { setThemeModeAction } from '../redux/actions';
 
@@ -11,7 +11,7 @@ interface IAppContext {
 }
 const AppContext = React.createContext<IAppContext>({ dark: false, setDark: () => {} });
 
-const App = () => {
+const App = ({ Component, pageProps }) => {
     const [dark, setDark] = useState(true);
 
     // const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const App = () => {
     return (
         <AppContext.Provider value={{ dark, setDark }}>
             <Grommet theme={theme} full themeMode={dark ? 'dark' : 'light'} background={{ dark: 'darkBlue' }}>
-                <DataModelPage />
+                <Component {...pageProps} />
             </Grommet>
         </AppContext.Provider>
     );
