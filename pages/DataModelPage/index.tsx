@@ -1,7 +1,7 @@
 import { Box, BoxProps, Button, Card, CardBody, CardFooter, CardHeader, Heading, Layer, Text, Tip } from 'grommet';
 import { Book, Close, Favorite, FormEdit, Hide } from 'grommet-icons';
+import { useRouter } from 'next/router';
 import React from 'react';
-// import { useLocation } from 'react-router-dom';
 import { DataModelContent, DataModelPageTemplate, EditDataForm, TipContent } from '../../components';
 import mockData from './mocks/abstract.json';
 
@@ -21,14 +21,14 @@ const DataModelPage = ({ children, ...props }: DataModelPageProps) => {
         setShowEditForm(true);
     };
 
-    // const location = useLocation();
+    const router = useRouter();
     const mainLocation = '/51780/dataModel/51780/main';
 
     return (
         <DataModelPageTemplate>
             <DataModelContent
                 dataModelContentArray={[
-                    /* location.pathname === mainLocation */ true
+                    router.pathname === mainLocation
                         ? {
                               tabTitle: 'Main',
                               content: (

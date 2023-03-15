@@ -19,9 +19,9 @@ import {
 } from 'grommet-icons';
 import { useRef, useState } from 'react';
 import TreeView, { INode, INodeRendererProps } from 'react-accessible-treeview';
-// import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { theme } from '../../../styles';
+import { useRouter } from 'next/router';
 
 enum Data {
     'dataModel' = 'dataModel',
@@ -200,15 +200,14 @@ export const Tree = () => {
     const [nodesAlreadyLoaded, setNodesAlreadyLoaded] = useState<TreeNode[]>([]);
     const [selectedId, setSelectedId] = useState<number>();
 
-    // const location = useLocation();
-    // const navigate = useNavigate();
+    const router = useRouter();
 
-    // React.useEffect(() => {
-    //     const id = initialData.find((treeNode) => treeNode.url === location.pathname)?.id;
-    //     if (id) {
-    //         setSelectedId(id);
-    //     }
-    // }, [location]);
+    React.useEffect(() => {
+        const id = initialData.find((treeNode) => treeNode.url === router.pathname)?.id;
+        if (id) {
+            setSelectedId(id);
+        }
+    }, [router]);
 
     const updateTreeData = (list: TreeNode[], id: number, children: TreeNode[]) => {
         const data = list.map((node) => {
@@ -307,7 +306,7 @@ export const Tree = () => {
                                     margin={{ left: `${20 * (level - 1)}px` }}
                                     {...(isSelected && { background: `${theme.global.colors.secondary}75` })}
                                     onClick={(e) => {
-                                        // navigate(`${element?.url}`);
+                                        router.push(`${element?.url}`);
                                         handleSelect(e);
                                     }}
                                 >
