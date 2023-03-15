@@ -15,6 +15,7 @@ export async function getStaticProps() {
 
 export interface DataModelPageProps extends BoxProps {
     /** DataModelPage data */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dataModelData: any;
     /** DataModelPage component children */
     children?: React.ReactNode;
