@@ -194,13 +194,21 @@ export const Tree = () => {
     const [selectedId, setSelectedId] = useState<number>();
 
     const router = useRouter();
+    const typeParam = router?.query?.type;
+    const idParam = router?.query?.id;
 
     React.useEffect(() => {
-        const id = initialData.find((treeNode) => treeNode.url === router.pathname)?.id;
+        console.log(router?.pathname?.replace('[type]', typeParam as string));
+        const id = initialData.find(
+            (treeNode) =>
+                treeNode.url ===
+                router?.pathname?.replace('[type]', typeParam as string).replace('[id]', idParam as string),
+        )?.id;
+
         if (id) {
             setSelectedId(id);
         }
-    }, [router]);
+    }, [router, typeParam, idParam]);
 
     const updateTreeData = (list: TreeNode[], id: number, children: TreeNode[]) => {
         const data = list.map((node) => {
@@ -299,8 +307,9 @@ export const Tree = () => {
                                     margin={{ left: `${20 * (level - 1)}px` }}
                                     {...(isSelected && { background: `${theme.global.colors.secondary}75` })}
                                     onClick={(e) => {
-                                        router.push(`${element?.url}`);
                                         handleSelect(e);
+                                        setSelectedId(0);
+                                        router.push(`${element?.url}`);
                                     }}
                                 >
                                     {isBranch ? (

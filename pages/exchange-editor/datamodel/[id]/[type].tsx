@@ -236,29 +236,23 @@ const DataModelPage = ({ dataModelData }: DataModelPageProps) => {
 
 export default DataModelPage;
 
-const generateTypeSlugs = () => {
-    const types = {};
+const generateIdsParams = (id) => {
+    const paths = [];
     for (const type in Data) {
-        types[type] = type;
+        paths.push({
+            params: {
+                id,
+                type,
+            },
+        });
     }
-    return types;
+    return paths;
 };
 
+
+//TODO turn on strict in tsconfig.json
 export async function getStaticPaths() {
-    const paths = [
-        {
-            params: {
-                id: '51780',
-                ...generateTypeSlugs(),
-            },
-        },
-        {
-            params: {
-                id: '51781',
-                ...generateTypeSlugs(),
-            },
-        },
-    ];
+    const paths = generateIdsParams('51780');
     return {
         paths,
         fallback: false,
