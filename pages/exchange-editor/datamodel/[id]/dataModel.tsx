@@ -2,7 +2,7 @@ import { Box, BoxProps, Button, Card, CardBody, CardFooter, CardHeader, Heading,
 import { Book, Close, Favorite, FormEdit, Hide } from 'grommet-icons';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { DataModelContent, DataModelPageTemplate, EditDataForm, TipContent } from '../../../../components';
+import { Data, DataModelContent, DataModelPageTemplate, EditDataForm, TipContent } from '../../../../components';
 import mockData from '../mocks/abstract.json';
 
 export async function getStaticProps() {
@@ -32,7 +32,7 @@ const DataModelPage = ({ dataModelData }: DataModelPageProps) => {
     };
 
     const router = useRouter();
-    const mainLocation = '/51780/dataModel/51780/main';
+    const mainLocation = '/exchange-editor/datamodel/51780/data_model';
 
     return (
         <DataModelPageTemplate>
@@ -236,16 +236,26 @@ const DataModelPage = ({ dataModelData }: DataModelPageProps) => {
 
 export default DataModelPage;
 
+const generateTypeSlugs = () => {
+    const types = {};
+    for (const type in Data) {
+        types[type] = type;
+    }
+    return types;
+};
+
 export async function getStaticPaths() {
     const paths = [
         {
             params: {
                 id: '51780',
+                ...generateTypeSlugs(),
             },
         },
         {
             params: {
                 id: '51781',
+                ...generateTypeSlugs(),
             },
         },
     ];
