@@ -1,8 +1,9 @@
 import { Box, BoxProps, Button, Card, CardBody, CardFooter, CardHeader, Heading, Layer, Text, Tip } from 'grommet';
 import { Book, Close, Favorite, FormEdit, Hide } from 'grommet-icons';
-import { useRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
 import { Data, DataModelContent, DataModelPageTemplate, EditDataForm, TipContent } from '../../../../components';
+import useGenerateParamUrl from '../../../../hooks/useGenerateParamUrl';
 import mockData from '../mocks/abstract.json';
 
 export async function getStaticProps() {
@@ -31,14 +32,15 @@ const DataModelPage = ({ dataModelData }: DataModelPageProps) => {
         setShowEditForm(true);
     };
 
-    const router = useRouter();
     const mainLocation = '/exchange-editor/datamodel/51780/data_model';
+
+    const url = useGenerateParamUrl(['type', 'id']);
 
     return (
         <DataModelPageTemplate>
             <DataModelContent
                 dataModelContentArray={[
-                    router.pathname === mainLocation
+                    url === mainLocation
                         ? {
                               tabTitle: 'Main',
                               content: (
@@ -248,7 +250,6 @@ const generateIdsParams = (id) => {
     }
     return paths;
 };
-
 
 //TODO turn on strict in tsconfig.json
 export async function getStaticPaths() {

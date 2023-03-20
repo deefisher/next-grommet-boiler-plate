@@ -22,6 +22,7 @@ import TreeView, { INode, INodeRendererProps } from 'react-accessible-treeview';
 import styled from 'styled-components';
 import { theme } from '../../../styles';
 import { useRouter } from 'next/router';
+import useGenerateParamUrl from '../../../hooks/useGenerateParamUrl';
 
 export enum Data {
     'data_model' = 'data_model',
@@ -197,13 +198,10 @@ export const Tree = () => {
     const typeParam = router?.query?.type;
     const idParam = router?.query?.id;
 
+    const url = useGenerateParamUrl(['type', 'id']);
+
     React.useEffect(() => {
-        console.log(router?.pathname?.replace('[type]', typeParam as string));
-        const id = initialData.find(
-            (treeNode) =>
-                treeNode.url ===
-                router?.pathname?.replace('[type]', typeParam as string).replace('[id]', idParam as string),
-        )?.id;
+        const id = initialData.find((treeNode) => treeNode.url === url)?.id;
 
         if (id) {
             setSelectedId(id);
