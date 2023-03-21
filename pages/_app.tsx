@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import { setThemeModeAction } from '../redux/actions';
 import { Provider } from 'react-redux';
 import store from '../redux/store';
+import type { AppProps } from 'next/app';
+import { mockAbstract } from './exchange-editor/datamodel/mocks/mockAbstract';
 
 interface IAppContext {
     dark: boolean;
@@ -12,7 +14,7 @@ interface IAppContext {
 }
 const AppContext = React.createContext<IAppContext>({ dark: false, setDark: () => {} });
 
-const AppProvider = ({ children }) => {
+const AppProvider = ({ children }: { children: React.ReactNode }) => {
     const [dark, setDark] = useState(true);
 
     const dispatch = useDispatch();
@@ -30,7 +32,11 @@ const AppProvider = ({ children }) => {
     );
 };
 
-const App = ({ Component, pageProps }) => {
+interface CustomPageProps {
+    dataModelData: typeof mockAbstract
+}
+
+const App = ({ Component, pageProps }: AppProps<CustomPageProps>) => {
     return (
         <Provider store={store}>
             <AppProvider>

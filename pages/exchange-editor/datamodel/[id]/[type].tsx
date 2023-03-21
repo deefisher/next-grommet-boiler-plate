@@ -1,10 +1,10 @@
 import { Box, BoxProps, Button, Card, CardBody, CardFooter, CardHeader, Heading, Layer, Text, Tip } from 'grommet';
 import { Book, Close, Favorite, FormEdit, Hide } from 'grommet-icons';
-import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
 import { Data, DataModelContent, DataModelPageTemplate, EditDataForm, TipContent } from '../../../../components';
 import useGenerateParamUrl from '../../../../hooks/useGenerateParamUrl';
 import mockData from '../mocks/abstract.json';
+import { mockAbstract } from '../mocks/mockAbstract';
 
 export async function getStaticProps() {
     return {
@@ -17,7 +17,7 @@ export async function getStaticProps() {
 export interface DataModelPageProps extends BoxProps {
     /** DataModelPage data */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    dataModelData: any;
+    dataModelData: typeof mockAbstract;
     /** DataModelPage component children */
     children?: React.ReactNode;
 }
@@ -238,7 +238,7 @@ const DataModelPage = ({ dataModelData }: DataModelPageProps) => {
 
 export default DataModelPage;
 
-const generateIdsParams = (id) => {
+const generateIdsParams = (id: string) => {
     const paths = [];
     for (const type in Data) {
         paths.push({
