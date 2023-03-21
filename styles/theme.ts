@@ -11,7 +11,9 @@ export const theme = deepMerge(grommet, {
             darkBlue: '#141B30',
         },
         font: {
-            family: 'Roboto',
+            face: {
+                family: 'Lato',
+            },
             size: '14px',
             height: '20px',
         },
