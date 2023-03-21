@@ -1,5 +1,4 @@
 import { NextRouter, useRouter } from 'next/router';
-import React from 'react';
 
 const useGenerateParamUrl = (paramKeys: string[]) => {
     const router = useRouter();

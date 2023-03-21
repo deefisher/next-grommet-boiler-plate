@@ -3,13 +3,12 @@ import { Book, Close, Favorite, FormEdit, Hide } from 'grommet-icons';
 import React from 'react';
 import { Data, DataModelContent, DataModelPageTemplate, EditDataForm, TipContent } from '../../../../components';
 import useGenerateParamUrl from '../../../../hooks/useGenerateParamUrl';
-import mockData from '../mocks/abstract.json';
 import { mockAbstract } from '../mocks/mockAbstract';
 
 export async function getStaticProps() {
     return {
         props: {
-            dataModelData: mockData,
+            dataModelData: mockAbstract,
         },
     };
 }
